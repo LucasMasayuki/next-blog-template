@@ -1,0 +1,57 @@
+{
+  "name": "nextjs-fullstack-app-template",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prettier": "prettier --write .",
+    "prepare": "husky install",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/icons-material": "^5.10.3",
+    "@mui/material": "^5.10.4",
+    "next": "12.3.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@mui/lab": "^5.0.0-alpha.98",
+    "@reduxjs/toolkit": "^1.8.5",
+    "@testing-library/react": "^13.4.0",
+    "@types/faker": "5.5.9",
+    "@types/node": "18.7.16",
+    "@types/react": "18.0.18",
+    "@types/react-dom": "18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "@vitejs/plugin-react": "^2.1.0",
+    "axios": "^0.27.2",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.23.0",
+    "eslint-config-next": "12.3.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "faker": "5.5.3",
+    "husky": "^8.0.1",
+    "jsdom": "^20.0.0",
+    "prettier": "^2.7.1",
+    "prop-types": "^15.8.1",
+    "react-redux": "^8.0.2",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "typescript": "4.8.3",
+    "vitest": "^0.23.1"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "yarn": ">=1.22.0",
+    "npm": "please-use-yarn"
+  }
+}
