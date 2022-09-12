@@ -7,6 +7,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../src/presentation/app/hooks';
 import {
@@ -18,6 +19,7 @@ import AccountMenu from './menus/account-menu';
 
 const Header: React.FC = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const { colorMode } = useSelector(selectColorMode);
 
@@ -30,7 +32,14 @@ const Header: React.FC = () => {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography color="primary" sx={{ fontWeight: 'bold' }} variant="h6">
+          <Typography
+            color="primary"
+            sx={{ fontWeight: 'bold', cursor: 'pointer' }}
+            variant="h6"
+            onClick={() => {
+              router.push('/', undefined, { shallow: true });
+            }}
+          >
             LOGO
           </Typography>{' '}
           <Box component="div" sx={{ flexGrow: 1 }} />

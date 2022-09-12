@@ -1,11 +1,18 @@
+import { Toolbar } from '@mui/material';
 import Footer from './footer';
 import Header from './header';
 
-const Layout: React.FC = () => {
+type Props = {
+  children: React.ReactElement;
+};
+
+const Layout: React.FC<Props> = ({ children }) => {
   return (
     <div>
       <Header />
-      <main />
+      <Toolbar />
+      <main>{children}</main>
+      <Toolbar />
       <Footer />
     </div>
   );
