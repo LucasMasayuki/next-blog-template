@@ -7,8 +7,8 @@ import readingTime from 'reading-time';
 
 const postsPath = path.join(process.cwd(), 'posts');
 
-export const getSlug = () => {
-  const paths = sync(`${postsPath}/*.mdx`);
+export const getSlug = (locale = 'en-US') => {
+  const paths = sync(`${postsPath}/${locale}/*.mdx`);
 
   return paths.map((path: string) => {
     // holds the paths to the directory of the article
@@ -20,8 +20,8 @@ export const getSlug = () => {
   });
 };
 
-export const getPostFromSlug = async (slug: string) => {
-  const postDir = path.join(postsPath, `${slug}.mdx`);
+export const getPostFromSlug = async (slug: string, locale = 'en-US') => {
+  const postDir = path.join(postsPath, locale, `${slug}.mdx`);
   const source = fs.readFileSync(postDir);
   const { content, data } = matter(source);
 
@@ -38,13 +38,13 @@ export const getPostFromSlug = async (slug: string) => {
   };
 };
 
-export const getAllPosts = async (): Promise<Post[]> => {
-  const posts = fs.readdirSync(path.join(process.cwd(), 'posts'));
+export const getAllPosts = async (locale = 'en-US'): Promise<Post[]> => {
+  const posts = fs.readdirSync(path.join(postsPath, locale));
 
   return posts.reduce((allPosts, postSlug): any => {
     // get parsed data from mdx files in the "posts" dir
     const source = fs.readFileSync(
-      path.join(process.cwd(), 'posts', postSlug),
+      path.join(postsPath, locale, postSlug),
       'utf-8'
     );
 

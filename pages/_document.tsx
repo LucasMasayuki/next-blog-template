@@ -8,7 +8,6 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link rel="icon" href="/favicon.ico" />
-          <meta name="description" content="Next Blog" />
           <meta property="og:image" content={'/logo.jpg'} />
 
           <link rel="preconnect" href="https://fonts.googleapis.com" />

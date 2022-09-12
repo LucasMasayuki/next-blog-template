@@ -3,7 +3,7 @@ import { Post } from 'domain/models/post.model';
 
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
 import { getPostFromSlug, getSlug } from 'main/adapters/posts-adapter';
-import { NextPage } from 'next';
+import { GetStaticPropsContext, NextPage } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import Head from 'next/head';
@@ -86,12 +86,13 @@ type Params = {
   params: {
     slug: string;
   };
+  context: GetStaticPropsContext;
 };
 
-export async function getStaticProps({ params }: Params) {
+export async function getStaticProps({ params, context }: Params) {
   //fetch the particular file based on the slug
   const { slug } = params;
-  const { content, frontmatter } = await getPostFromSlug(slug);
+  const { content, frontmatter } = await getPostFromSlug(slug, context);
 
   const mdxSource = await serialize(content, {
     mdxOptions: {

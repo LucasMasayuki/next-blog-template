@@ -1,7 +1,7 @@
 import { Grid, Pagination, Stack } from '@mui/material';
 import { Post } from 'domain/models/post.model';
 import { getAllPosts } from 'main/adapters/posts-adapter';
-import type { NextPage } from 'next';
+import type { GetStaticPropsContext, NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import Layout from '../components/base/layout';
@@ -65,8 +65,8 @@ const Home: NextPage<Props> = ({ posts }) => {
   );
 };
 
-export async function getStaticProps() {
-  const posts = await getAllPosts();
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const posts = await getAllPosts(context.locale);
 
   posts.sort((a, b) => {
     if (a.publishedAt > b.publishedAt) return 1;
