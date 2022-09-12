@@ -6,8 +6,8 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import Layout from '../components/base/layout';
 import Parallax from '../components/base/parallax';
-import Banner from '../components/pages/index/banner';
-import PostsList from '../components/pages/index/posts-list';
+import Banner from '../components/pages/home/banner';
+import PostsList from '../components/pages/home/posts-list';
 
 type Props = {
   posts: Post[];

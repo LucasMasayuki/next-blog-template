@@ -1,20 +1,19 @@
-import { Card, CardContent, Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import { Post } from 'domain/models/post.model';
 
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
 import { getPostFromSlug, getSlug } from 'main/adapters/posts-adapter';
 import { GetStaticPropsContext, NextPage } from 'next';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import Head from 'next/head';
-import Image from 'next/image';
 import React from 'react';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
-import ImageWithReference from '../../components/base/image-with-reference';
 import Layout from '../../components/base/layout';
+import PostCard from '../../components/pages/post/post-card';
 
 type Props = {
   post: {
@@ -22,8 +21,10 @@ type Props = {
     frontmatter: Post;
   };
 };
+
 const PostPage: NextPage<Props> = ({ post }) => {
   const { frontmatter, source } = post;
+
   return (
     <React.Fragment>
       <Head>
@@ -33,33 +34,7 @@ const PostPage: NextPage<Props> = ({ post }) => {
         <Grid container>
           <Grid item xs={1} />
           <Grid item xs={10}>
-            <Card>
-              <ImageWithReference
-                referenceURL={frontmatter.ogImage.thanksTo}
-                href={frontmatter.ogImage.url}
-                height={{ xs: '30vh', md: '60vh' }}
-                width={'100vw'}
-                referencePosition={{ right: '1%', top: 0 }}
-              />
-              <CardContent sx={{ p: 2 }}>
-                <Grid container>
-                  <Grid item xs={12} textAlign="center">
-                    <Typography variant={'h2'}>{frontmatter.title}</Typography>
-                  </Grid>
-                  <Grid item xs={12} textAlign="center">
-                    <Typography variant={'subtitle2'}>
-                      {new Date(frontmatter.publishedAt).toLocaleDateString(
-                        'pt-br'
-                      )}{' '}
-                      &mdash; {frontmatter.readingTime}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} textAlign="justify">
-                    <MDXRemote {...source} components={{ Image }} />
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
+            <PostCard frontmatter={frontmatter} source={source} />
           </Grid>
           <Grid item xs={1} />
         </Grid>
@@ -82,17 +57,16 @@ export async function getStaticPaths() {
   };
 }
 
-type Params = {
-  params: {
-    slug: string;
-  };
-  context: GetStaticPropsContext;
-};
-
-export async function getStaticProps({ params, context }: Params) {
-  //fetch the particular file based on the slug
-  const { slug } = params;
-  const { content, frontmatter } = await getPostFromSlug(slug, context);
+export async function getStaticProps({
+  params,
+  locale,
+}: GetStaticPropsContext<{
+  slug: string;
+}>) {
+  const { content, frontmatter } = await getPostFromSlug(
+    params?.slug ?? '',
+    locale
+  );
 
   const mdxSource = await serialize(content, {
     mdxOptions: {
