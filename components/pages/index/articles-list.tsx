@@ -1,7 +1,7 @@
 /* eslint-disable no-bitwise */
 
 import { Grid } from '@mui/material';
-import { Article } from 'domain/models/article-model';
+import { Article } from 'domain/models/article.model';
 import ArticlePreview from './artcicle-preview';
 
 type Props = {
