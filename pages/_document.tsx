@@ -33,7 +33,6 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
 
-          <meta name="og:title" content={'Next blog'} />
           <meta name="twitter:card" content="summary_large_image" />
         </Head>
         <body style={{ height: '100%' }}>

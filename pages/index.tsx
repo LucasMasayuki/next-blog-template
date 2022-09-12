@@ -1,17 +1,34 @@
-import { Article } from 'domain/models/article.model';
-import { getAllArticles } from 'main/adapters/articles-adapter';
+import { Grid, Pagination, Stack } from '@mui/material';
+import { Post } from 'domain/models/post.model';
+import { getAllPosts } from 'main/adapters/posts-adapter';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import Layout from '../components/base/layout';
 import Parallax from '../components/base/parallax';
-import ArticlesList from '../components/pages/index/articles-list';
 import Banner from '../components/pages/index/banner';
+import PostsList from '../components/pages/index/posts-list';
 
 type Props = {
-  articles: Article[];
+  posts: Post[];
 };
 
-const Home: NextPage<Props> = ({ articles }) => {
+const Home: NextPage<Props> = ({ posts }) => {
+  const [page, setPage] = useState(1);
+  const [postsInPage, setPostsInPage] = useState<Post[]>([]);
+  const perPage = 9;
+  const totalPosts = posts.length;
+
+  useEffect(() => {
+    const start = (page - 1) * perPage;
+    let end = start + perPage;
+    if (end > totalPosts) {
+      end = totalPosts;
+    }
+
+    setPostsInPage(posts.slice(start, end));
+  }, [page, posts, totalPosts]);
+
   return (
     <div>
       <Head>
@@ -25,7 +42,23 @@ const Home: NextPage<Props> = ({ articles }) => {
           <Parallax backgroundImage="linear-gradient(red, yellow)">
             <Banner />
           </Parallax>
-          <ArticlesList articles={articles} />
+          <Grid container sx={{ mt: 6 }}>
+            <Grid item xs={12}>
+              <PostsList posts={postsInPage} />
+            </Grid>
+            <Grid item xs={12} sx={{ mt: 6 }}>
+              <Stack spacing={2}>
+                <Pagination
+                  count={totalPosts}
+                  page={page}
+                  onChange={(ev, page) => {
+                    setPage(page);
+                  }}
+                  color="primary"
+                />
+              </Stack>
+            </Grid>
+          </Grid>
         </>
       </Layout>
     </div>
@@ -33,9 +66,9 @@ const Home: NextPage<Props> = ({ articles }) => {
 };
 
 export async function getStaticProps() {
-  const articles = await getAllArticles();
+  const posts = await getAllPosts();
 
-  articles.sort((a, b) => {
+  posts.sort((a, b) => {
     if (a.publishedAt > b.publishedAt) return 1;
     if (a.publishedAt < b.publishedAt) return -1;
 
@@ -44,7 +77,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      articles: articles.reverse(),
+      posts: posts.reverse(),
     },
   };
 }

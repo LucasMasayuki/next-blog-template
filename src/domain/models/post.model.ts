@@ -1,7 +1,7 @@
 import { Author } from './author.mode';
 import { OgImage } from './og-image.model';
 
-export type Article = {
+export type Post = {
   publishedAt: Date;
   slug: string;
   excerpt: string;

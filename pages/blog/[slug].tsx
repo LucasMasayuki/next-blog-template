@@ -1,8 +1,8 @@
 import { Card, CardContent, Grid, Typography } from '@mui/material';
-import { Article } from 'domain/models/article.model';
+import { Post } from 'domain/models/post.model';
 
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
-import { getArticleFromSlug, getSlug } from 'main/adapters/articles-adapter';
+import { getPostFromSlug, getSlug } from 'main/adapters/posts-adapter';
 import { NextPage } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
@@ -19,10 +19,10 @@ import Layout from '../../components/base/layout';
 type Props = {
   post: {
     source: MDXRemoteSerializeResult;
-    frontmatter: Article;
+    frontmatter: Post;
   };
 };
-const Post: NextPage<Props> = ({ post }) => {
+const PostPage: NextPage<Props> = ({ post }) => {
   const { frontmatter, source } = post;
   return (
     <React.Fragment>
@@ -91,7 +91,7 @@ type Params = {
 export async function getStaticProps({ params }: Params) {
   //fetch the particular file based on the slug
   const { slug } = params;
-  const { content, frontmatter } = await getArticleFromSlug(slug);
+  const { content, frontmatter } = await getPostFromSlug(slug);
 
   const mdxSource = await serialize(content, {
     mdxOptions: {
@@ -120,4 +120,4 @@ export async function getStaticProps({ params }: Params) {
   };
 }
 
-export default Post;
+export default PostPage;
