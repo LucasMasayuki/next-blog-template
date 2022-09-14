@@ -33,7 +33,7 @@ export default function ImageWithReference({
       <Typography
         color="white"
         fontSize={12}
-        sx={{ position: 'absolute', zIndex: 99999999, ...referencePosition }}
+        sx={{ position: 'absolute', zIndex: 1, ...referencePosition }}
       >
         Designed by{' '}
         <Link href={referenceURL} target="_blank">

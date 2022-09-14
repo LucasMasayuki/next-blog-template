@@ -31,8 +31,6 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@100&display=swap"
             rel="stylesheet"
           />
-
-          <meta name="twitter:card" content="summary_large_image" />
         </Head>
         <body style={{ height: '100%' }}>
           <Main />

@@ -1,4 +1,4 @@
-import { Grid, Pagination, Stack } from '@mui/material';
+import { Grid, Pagination } from '@mui/material';
 import { Post } from 'domain/models/post.model';
 import { getAllPosts } from 'main/adapters/posts-adapter';
 import type { GetStaticPropsContext, NextPage } from 'next';
@@ -47,16 +47,14 @@ const Home: NextPage<Props> = ({ posts }) => {
               <PostsList posts={postsInPage} />
             </Grid>
             <Grid item xs={12} sx={{ mt: 6 }}>
-              <Stack spacing={2}>
-                <Pagination
-                  count={totalPosts}
-                  page={page}
-                  onChange={(ev, page) => {
-                    setPage(page);
-                  }}
-                  color="primary"
-                />
-              </Stack>
+              <Pagination
+                count={totalPosts}
+                page={page}
+                onChange={(ev, page) => {
+                  setPage(page);
+                }}
+                color="primary"
+              />
             </Grid>
           </Grid>
         </>

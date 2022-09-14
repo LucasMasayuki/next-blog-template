@@ -6,7 +6,6 @@ import { getPostFromSlug, getSlug } from 'main/adapters/posts-adapter';
 import { GetStaticPropsContext, NextPage } from 'next';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
-import Head from 'next/head';
 import React from 'react';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
@@ -27,9 +26,6 @@ const PostPage: NextPage<Props> = ({ post }) => {
 
   return (
     <React.Fragment>
-      <Head>
-        <title>{frontmatter.title} | My blog</title>
-      </Head>
       <Layout>
         <Grid container>
           <Grid item xs={1} />
@@ -44,10 +40,10 @@ const PostPage: NextPage<Props> = ({ post }) => {
 };
 
 // dynamically generate the slugs for each article(s)
-export async function getStaticPaths() {
+export function getStaticPaths() {
   // getting all paths of each article as an array of
   // objects with their unique slugs
-  const paths = (await getSlug()).map((slug) => ({ params: { slug } }));
+  const paths = getSlug().map((slug) => ({ params: { slug } }));
 
   return {
     paths,

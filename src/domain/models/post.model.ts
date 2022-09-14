@@ -10,4 +10,5 @@ export type Post = {
   coverImage: string;
   ogImage: OgImage;
   author: Author;
+  tags: string[];
 };
