@@ -9,7 +9,6 @@ type Props = {
 };
 
 const PostsList: React.FC<Props> = ({ posts }) => {
-  console.log(posts);
   return (
     <Grid container>
       {posts.map((post) => (
