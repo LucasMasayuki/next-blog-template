@@ -39,11 +39,19 @@ const PostPage: NextPage<Props> = ({ post }) => {
   );
 };
 
+type PathParam = { params: { slug: string } };
+
 // dynamically generate the slugs for each article(s)
-export function getStaticPaths() {
+export function getStaticPaths({ locales }: GetStaticPropsContext) {
   // getting all paths of each article as an array of
   // objects with their unique slugs
-  const paths = getSlug().map((slug) => ({ params: { slug } }));
+
+  const paths = locales?.reduce((currentPaths: PathParam[], locale) => {
+    return [
+      ...currentPaths,
+      ...getSlug(locale).map((slug) => ({ params: { slug } })),
+    ];
+  }, []);
 
   return {
     paths,

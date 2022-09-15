@@ -32,7 +32,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body style={{ height: '100%' }}>
+        <body style={{ height: '100%', overflowX: 'hidden' }}>
           <Main />
           <NextScript />
         </body>
